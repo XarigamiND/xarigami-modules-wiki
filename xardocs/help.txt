@@ -1,0 +1,63 @@
+Text Formatting Rules
+=====================
+
+This wiki uses the same syntax, in the main, as the original phpWiki (http://http://c2.com/cgi-bin/wiki?TextFormattingRules)
+
+Paragraphs
+- Text will wrap automatically at the window width edge as needed.
+- If you need to generate a line break use three percent signs (%) (like <br>).
+
+Headings
+- use exclamation marks at start and beginning of a heading
+- one or more ! up to six gives headings h6 to h1
+- you can also use two or more = in a row up to seven for the same h6 to h1
+- text bound by 3 dashes (---) will be centred
+
+Horizontal Lines
+- Four or more minus signs (----) at the beginning of a line make a horizontal rule.
+- three %%% makes a line break
+
+Lists
+- Begin a line with * to create an unordered list item.
+- Use ** for the second level, etc.
+- Use  # for numbered lists
+
+
+Text formatting
+- ~~monospace text~~
+- ~~~code block~~~
+- ++strikethrough++ text
+- __underlined text__
+- Use two single-quotes ('') for emphasis (usually italics)
+- Use tripled underscore (___) or three single-quotes (''') for strong or bold
+- use five underscore (_____) or five single quotes('''''), for bold emphasis (usually bold italics)
+
+
+Indented paragraphs (quotes)
+- indent with one or two spaces at beginning of the line
+
+Definitions
+- four spaces followed by Definition Name: followed by four spaces and definition will produce a definition list
+
+Links
+- Add URLS with allowed protocols such as ftp, gopher, mailto or news and they will create a link automatically
+eg
+http://c2.com/
+mailto:swain@wcsb.org
+http://www.redhat.com/
+
+Mark-Up Language
+In theory, it is possible to mix, in the same text, wiki encoding and html ...
+
+
+Links:
+- A [link|http://www.domain.com] will work, in a different window.
+- A [link|www.domain.com] will work, in same window.
+- A [link|SomeDir] will work, calling the content page SomePage in the same domain.
+
+Images:
+- An image can be [text for alt text|http://www.domain.com/picturefolder/nameofimage.png] included with a link and an alt text.
+- An image can be [text for alt text|http://www.domain.com/|picture:folder/nameofimage.png] included with a link and an alt text. [NOT WORKING]
+   The clause "picture:folder/nameofimage.png" is evident: folder is where is the image shown, folder being relative to the root.
+
+Attention, the html tag <img> has to be allowed in your settings, including parameters.

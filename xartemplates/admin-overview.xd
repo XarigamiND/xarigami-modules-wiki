@@ -1,0 +1,125 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Overview</xar:mlstring></h1>
+         <img src="#xarTplGetImage('admin_generic.gif','base')#" class="xar-module-icon" alt="official icon" width="96" height="96" />
+        <div class="xar-mod-content">
+            <h2><xar:mlstring>What is it?</xar:mlstring></h2>
+            <p>
+                <em><xar:mlstring>Wiki module is a simple implementation of wiki markup text formatting.</xar:mlstring></em>
+            </p>
+            <p>
+                <xar:mlstring>It transforms text containing <a href="http://en.wikipedia.org/wiki/Wikipedia:How_to_edit_a_page#Wiki_markup">wiki markup</a> in a module itemtype.
+                </xar:mlstring> <xar:mlstring>At the current time it provides transformation of wiki formatting markup tags,
+                 not wiki markup for wiki linking and wiki words.</xar:mlstring>
+            </p>
+
+            <h2><xar:mlstring>How to use it?</xar:mlstring></h2>
+             <ol><xar:set name="hooklink">xarModURL('modules','admin','hooks',array('hook'=>'wiki'))</xar:set>
+                <li><a href="#$hooklink#"><xar:mlstring>Hook the Wiki module</xar:mlstring></a> <xar:mlstring>to any content module and/or it's itemtypes that supports hooks. For example the Articles module and any of it's publication types or Xarpages.</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Set short URLS on in articles module based on article title, or ensure xarpages page names are always checked as 'alias'</xar:mlstring></li>
+                <li><xar:mlstring>Give privileges to create the article or xarpage to those that you want to enable to edit and add wiki docs</xar:mlstring></li>
+            </ol>
+            <h2><xar:mlstring>Guide to xarigami Wiki markup</xar:mlstring></h2>
+                <h4>Paragraphs</h4>
+                <ul>
+                <li><xar:mlstring>Text will wrap automatically at the window width edge as needed.</xar:mlstring></li>
+                <li><xar:mlstring>If you need to generate a line break use three percent signs (%) (like &lt;br /&gt;).</xar:mlstring></li>
+                </ul>
+
+                <h4>Headings</h4>
+                <ul>
+                <li><xar:mlstring>use exclamation marks at start and beginning of a heading</xar:mlstring></li>
+                <li><xar:mlstring>one or more ! up to six gives headings h6 to h1</xar:mlstring></li>
+                <li><xar:mlstring> you can also use two or more = in a row up to seven for the same h6 to h1</xar:mlstring></li>
+                <li><xar:mlstring>text bound by 3 dashes (---) will be centred</xar:mlstring></li>
+                </ul>
+                <h4>Horizontal Lines</h4>
+                <ul>
+                <li><xar:mlstring>Four or more minus signs (----) at the beginning of a line make a horizontal rule.</xar:mlstring></li>
+                <li><xar:mlstring>three %%% makes a line break</xar:mlstring></li>
+                </ul>
+                <h4>Lists</h4>
+                <ul>
+                <li><xar:mlstring> Begin a line with * to create an unordered list item.</xar:mlstring></li>
+                <li><xar:mlstring> Use ** for the second level, etc.</xar:mlstring></li>
+                <li><xar:mlstring> Use  # for numbered lists </xar:mlstring></li>
+                </ul>
+
+                <h4>Text formatting </h4>
+                <ul>
+                <li><xar:mlstring> ~~monospace text~~</xar:mlstring></li>
+                <li><xar:mlstring> ~~~codeblock~~~</xar:mlstring></li>
+                <li><xar:mlstring> ++strikethrough++ text</xar:mlstring></li>
+                <li><xar:mlstring> __underlined text__ </xar:mlstring></li>
+                <li><xar:mlstring> Use two single-quotes ('') for emphasis (usually italics)</xar:mlstring></li>
+                <li><xar:mlstring> Use tripled underscore (___) or three single-quotes (''') for strong or bold</xar:mlstring></li>
+                <li><xar:mlstring> use five underscore (_____) or five single quotes('''''), for bold emphasis (usually bold italics)</xar:mlstring></li>
+                </ul>
+
+                <h4>Indented paragraphs (quotes)</h4>
+                <ul>
+                <li><xar:mlstring> indent with one or two spaces at beginning of the line</xar:mlstring></li>
+                </ul>
+                <h4>Definitions</h4>
+                <ul>
+                <li><xar:mlstring>four spaces followed by Definition Name: followed by four spaces and definition will produce a definition list</xar:mlstring></li>
+                </ul>
+                <h4>Links</h4>
+                <ul>
+                <li><xar:mlstring> Add URLS with allowed protocols such as ftp, gopher, mailto or news and they will create a link automatically eg</xar:mlstring>
+                    <ul><li>http://c2.com/</li>
+                    <li>mailto:swain@wcsb.org</li>
+                    <li>http://www.redhat.com/</li>
+                    </ul>
+                </li>
+                <li><xar:mlstring> A [link|http://www.domain.com] will work, in a different window.</xar:mlstring></li>
+                <li><xar:mlstring> A [link|www.domain.com] will work, in same window.</xar:mlstring></li>
+                <li><xar:mlstring> A [link|SomeDir] will work, calling the content page SomePage in the same domain.</xar:mlstring></li>
+                </ul>
+                <h4>Images</h4>
+                <ul>
+                <li><xar:mlstring> An image can be [text for alt text|http://www.domain.com/picturefolder/nameofimage.png] included with a link and an alt text.</xar:mlstring></li>
+                <li><xar:mlstring> An image can be [text for alt text|http://www.domain.com/|picture:folder/nameofimage.png] included with a link and an alt text. [NOT WORKING]<br />
+                   The clause "picture:folder/nameofimage.png" is evident: folder is where is the image shown, folder being relative to the root.</xar:mlstring></li>
+                </ul>
+                <p><xar:mlstring>Attention, the html tag &lt;img /&gt; has to be allowed in your settings, including parameters.</xar:mlstring>
+                </p>
+                <h4>Mark-Up Language</h4>
+                <p><xar:mlstring>In theory, it is possible to mix, in the same text, wiki encoding and html ...</xar:mlstring>
+                </p>
+            <h2><xar:mlstring>Included Blocks</xar:mlstring></h2>
+            <p><xar:mlstring>There are no included blocks.</xar:mlstring></p>
+
+            <h2><xar:mlstring>Included Hooks</xar:mlstring></h2>
+            <p>
+                <xar:mlstring>
+                  The Wiki module provides a transform hook that transforms Wiki markup.
+                  To activate the hook go to </xar:mlstring>
+                <a href="&xar-modurl-modules-admin-hooks;&amp;hook=wiki"><xar:mlstring>Modules - Configure Hooks - Wiki Module</xar:mlstring></a>.
+                <xar:mlstring> From there check the radio buttons next to the modules and itemtypes where you wish to activate the wiki markup transformations.
+                </xar:mlstring>
+            </p>
+
+            <h3>
+                <xar:mlstring>Further Information</xar:mlstring>
+              </h3>
+              <p>
+                <xar:mlstring>Further information on the Wiki module can be found at</xar:mlstring>
+              </p>
+              <ul>
+                <li><xar:mlstring>Wiki Extension page at</xar:mlstring> <a title="#xarML('Wiki Module - Xarigami Extension 28')#" href="http://xarigami.org/project/wiki">Xarigami Projects</a>.
+                  <xar:mlstring> Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Related tutorials and documentation on Wiki found at</xar:mlstring> <a href="http://xarigami.org/project/wiki" title="#xarML('Related documentation on Wiki')#"><xar:mlstring>Documentation.</xar:mlstring></a>
+                </li>
+              </ul>
+        </div>
+    </div>
+</div>

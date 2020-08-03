@@ -1,0 +1,5 @@
+This work is originally based on the work of phpWiki people:
+http://sourceforge.net/projects/phpwiki/
+Adapted first for postnuke by Sebastien Bernard and further updated ny Jim McDee.
+
+Adapted and enhanced now for xarigami.

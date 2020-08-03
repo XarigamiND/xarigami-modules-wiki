@@ -1,0 +1,104 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:comment>
+            Common admin menu.
+            The variables used in this menu come from example_admin_getmenulinks()
+        </xar:comment>
+        <xar:comment>Only show the menus if this is NOT an ajax request</xar:comment>
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <xar:comment> the specific template for the current admin function comes here </xar:comment>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" id="post" action="#xarModURL('wiki','admin','updateconfig')#" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend><xar:mlstring>Wiki Options</xar:mlstring></legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="AllowedProtocols" class="xar-form-label" title="#xarML('AllowedProtocols')#">
+                            <xar:mlstring>AllowedProtocols:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="AllowedProtocols" id="AllowedProtocols" value="$AllowedProtocols" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="InlineImages" class="xar-form-label" title="#xarML('Allowed inline images extensions')#">
+                            <xar:mlstring>Allowed images extensions:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="InlineImages" id="InlineImages" value="$InlineImages" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="FieldSeparator" class="xar-form-label" title="#xarML('FieldSeparator')#">
+                            <xar:mlstring>Field separator:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="FieldSeparator" id="FieldSeparator" value="$FieldSeparator" size="1" maxlength="1" class=" " />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for = "WithHTML" class="xar-form-label" title="#xarML('Allow HTML')#">
+                            <xar:mlstring>Allow HTML:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" value="$WithHTML" id="WithHTML" name="WithHTML" checked="$WithHTML" />
+                    </div>
+                </fieldset>
+                <xar:comment>
+                <fieldset>
+                    <legend><xar:mlstring>System Options</xar:mlstring></legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="shorturls" class="xar-form-label" title="#xarML('Enable short URLS?')#">
+                            <xar:mlstring>Enable short URLs?</xar:mlstring>
+                        </label>
+                        <xar:if condition="$shorturlschecked">
+                            <input type="checkbox" name="shorturls" id="shorturls" value="1" checked="checked" />
+                        <xar:else/>
+                            <input type="checkbox" name="shorturls" id="shorturls" value="1" />
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for = "modulealias" class="xar-form-label" title="#xarML('Use an alias instead of the module name')#">
+                            <xar:mlstring>Use a module alias</xar:mlstring>
+                        </label>
+                        <xar:if condition="xarModGetVar('example', 'useModuleAlias')">
+                            <input type="checkbox" name="modulealias" id="modulealias" value="1" checked="checked" />
+                        <xar:else />
+                            <input type="checkbox" name="modulealias" id="modulealias" value="1" />
+                        </xar:if>
+
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="aliasname" class="xar-form-label" title="#xarML('The name of module alias to be used.')#">
+                            <xar:mlstring>Module Alias Name</xar:mlstring>
+                        </label>
+                        <input type="text" name="aliasname" id="aliasname" value="#xarModGetVar('example', 'aliasname')#" size="32" maxlength="100" />
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <legend><xar:mlstring>Enabled Hooks</xar:mlstring></legend>
+                    <xar:if condition="!empty($hooks)">
+                        <xar:foreach in="$hooks" key="$hookmodule">
+                        <!--
+                            You can display individual hooks if you want using xar:if statements
+                            <xar:if condition="($hookmodule eq 'categories') and !empty($hookmodule)">
+                                #$hooks['categories']#
+                            </xar:if>
+                             or display them all with one command as follows
+                        -->
+                        #$hooks[$hookmodule]#
+                        </xar:foreach>
+                    </xar:if>
+                </fieldset>
+                </xar:comment>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="submit" value="#xarML('Update Configuration')#" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
