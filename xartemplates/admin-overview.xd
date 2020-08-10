@@ -110,15 +110,9 @@
             <h3>
                 <xar:mlstring>Further Information</xar:mlstring>
               </h3>
-              <p>
-                <xar:mlstring>Further information on the Wiki module can be found at</xar:mlstring>
-              </p>
               <ul>
-                <li><xar:mlstring>Wiki Extension page at</xar:mlstring> <a title="#xarML('Wiki Module - Xarigami Extension 28')#" href="http://xarigami.org/project/wiki">Xarigami Projects</a>.
-                  <xar:mlstring> Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
-                </li>
-                <li><xar:mlstring>Related tutorials and documentation on Wiki found at</xar:mlstring> <a href="http://xarigami.org/project/wiki" title="#xarML('Related documentation on Wiki')#"><xar:mlstring>Documentation.</xar:mlstring></a>
-                </li>
+                <li><a href="http://xarigami.org/project/wiki"><xar:mlstring>Xarigami Wiki project page</xar:mlstring></a></li>
+                <li><a href="http://xarigami.org/contrails/displayproject/xwiki"><xar:mlstring>Xarigami Wiki issue tracker</xar:mlstring></a></li>
               </ul>
         </div>
     </div>
