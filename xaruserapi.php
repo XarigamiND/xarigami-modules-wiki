@@ -317,6 +317,11 @@ function wiki_userapitransform($cContent,$module,$itemtype)
     if (!isset($XARAllowedProtocols)) {
         $XARAllowedProtocols = xarModGetVar('wiki', 'AllowedProtocols');
     }
+    static $XARUseCreoleSyntax;
+    if (!isset($XARUseCreoleSyntax)) {
+        $XARUseCreoleSyntax = xarModGetVar('wiki', 'UseCreoleSyntax') ? true : false;
+    }
+    $creole = $XARUseCreoleSyntax;
 
     $html = "";
 
@@ -404,7 +409,7 @@ function wiki_userapitransform($cContent,$module,$itemtype)
             '<hr/>',
             $tmpline);
         // %%%% are image blocks
-        if (preg_match("|(%%%%)(.*?)(%%%%)|", $tmpline, $aContenu)) {
+        if (preg_match("|(s%%%%)(.*?)(%%%%)|", $tmpline, $aContenu)) {
             $retour = XARwikiInclude($aContenu[0]);
             $retour = preg_replace("|(%%%%)(.*?)(%%%%)|", "\\2", $retour);
             $retour = wiki_userapitransform($retour);
@@ -424,30 +429,34 @@ function wiki_userapitransform($cContent,$module,$itemtype)
                 '<br />',
                 $tmpline);
         }
-        // bold italics (old way)
-        $tmpline = preg_replace("|(''''')(.*?)(''''')|",
-            "<strong><em>\\2</em></strong>",
-            $tmpline);
-        // bold (old way)
-        $tmpline = preg_replace("|(''')(.*?)(''')|",
-            "<strong>\\2</strong>",
-            $tmpline);
-        // italics (old ways)
-        $tmpline = preg_replace("|('')(.*?)('')|",
+        if(!$creole) {
+            // bold italics (old way)
+            $tmpline = preg_replace("|(''''')(.*?)(''''')|",
+                "<strong><em>\\2</em></strong>",
+                $tmpline);
+            // bold (old way)
+            $tmpline = preg_replace("|(''')(.*?)(''')|",
+                "<strong>\\2</strong>",
+                $tmpline);
+        }
+        // italics
+        $tmpline = preg_replace($creole ? "|(//)(.*?)(//)|" : "|('')(.*?)('')|",
             "<em>\\2</em>",
-            $tmpline);
+                $tmpline);
         // bold
-        $tmpline = preg_replace("|(___)(.*?)(___)|",
+        $tmpline = preg_replace($creole ? "|(\*\*)(.*?)(\*\*)|" : "|(___)(.*?)(___)|",
             "<strong>\\2</strong>",
             $tmpline);
         // italics
         //$tmpline = preg_replace("|(__)(.*?)(__)|",
           //  "<em>\\2</em>",
            // $tmpline);
-        // bold italics
-        $tmpline = preg_replace("|(_____)(.*?)(_____)|",
-            '<strong><em>\\2</em></strong>',
-            $tmpline);
+        if(!$creole) {
+            // bold italics
+            $tmpline = preg_replace("|(_____)(.*?)(_____)|",
+                '<strong><em>\\2</em></strong>',
+                $tmpline);
+        }
         // center
         $tmpline = preg_replace("|(---)(.*?)(---)|",
             "<center>\\2</center>",
@@ -534,26 +543,30 @@ function wiki_userapitransform($cContent,$module,$itemtype)
             // this is preformatted text, i.e. <pre>
             // $html .= "????";
             // $html .= XARSetHTMLOutputMode('pre', WIKI_ZERO_LEVEL, 0);
-        } elseif (preg_match("/^(!{1,6})[^!]+?(!{1,6})$/", trim($tmpline), $whichheading) || preg_match("/^(={2,7})[^=]+?(={2,7})$/", trim($tmpline), $whichheading)) {
+        } elseif (preg_match($creole ? "/^(={1,6})[^=]+?(={1,6})$/" : "/^(!{1,6})[^!]+?(!{1,6})$/", trim($tmpline), $whichheading) || (!$creole && preg_match("/^(={2,7})[^=]+?(={2,7})$/", trim($tmpline), $whichheading))) {
 
-            // lines starting with !,!!,!!! or ==, ===, ====, etc are headings
-            if ($whichheading[1] == '!' || $whichheading[1] == '==')
-            {
-                $heading = 'h6';
+            if($creole) {
+                $heading = 'h' . strlen($whichheading[1]);
+                $tmpline = preg_replace(array("/^=+/", "/=+$/"), '', trim($tmpline));
+            } else {
+                // lines starting with !,!!,!!! or ==, ===, ====, etc are headings
+                if ($whichheading[1] == '!' || $whichheading[1] == '==')
+                {
+                    $heading = 'h6';
 
-            } elseif ($whichheading[1] == '!!' || $whichheading[1] == '===') {
-                $heading = 'h5';
-             } elseif ($whichheading[1] == '!!!' || $whichheading[1] == '====') {
-                $heading = 'h4';
-             } elseif ($whichheading[1] == '!!!!' || $whichheading[1] == '=====') {
-                $heading = 'h3';
-            } elseif ($whichheading[1] == '!!!!!' || $whichheading[1] == '======') {
-                $heading = 'h2';
-            } elseif ($whichheading[1] == '!!!!!!' || $whichheading[1] == '=======') {
-                $heading = 'h1';
+                } elseif ($whichheading[1] == '!!' || $whichheading[1] == '===') {
+                    $heading = 'h5';
+                 } elseif ($whichheading[1] == '!!!' || $whichheading[1] == '====') {
+                    $heading = 'h4';
+                 } elseif ($whichheading[1] == '!!!!' || $whichheading[1] == '=====') {
+                    $heading = 'h3';
+                } elseif ($whichheading[1] == '!!!!!' || $whichheading[1] == '======') {
+                    $heading = 'h2';
+                } elseif ($whichheading[1] == '!!!!!!' || $whichheading[1] == '=======') {
+                    $heading = 'h1';
+                }
+                $tmpline = preg_replace(array("/^!+/", "/!+$/", "/^=+/", "/=+$/"), '', trim($tmpline));
             }
-            $tmpline = preg_replace(array("/^!+/", "/!+$/", "/^=+/", "/=+$/"), '', trim($tmpline));
-
             $html .= XARSetHTMLOutputMode($heading, WIKI_ZERO_LEVEL, 0);
         } else {
 

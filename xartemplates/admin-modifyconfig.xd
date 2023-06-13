@@ -43,6 +43,13 @@
                         </label>
                         <xar:data-input type="checkbox" value="$WithHTML" id="WithHTML" name="WithHTML" checked="$WithHTML" />
                     </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="UseCreoleSyntax" class="xar-form-label" title="#xarML('Creole is a different Wiki standard than the default.')#">
+                            <xar:mlstring>Use Creole syntax:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="UseCreoleSyntax" id="UseCreoleSyntax" value="$UseCreoleSyntax" />
+                    </div>
+
                 </fieldset>
                 <xar:comment>
                 <fieldset>

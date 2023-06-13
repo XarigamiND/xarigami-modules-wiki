@@ -21,11 +21,13 @@ function wiki_admin_updateconfig()
     if (!xarVarFetch('InlineImages',     'str:1:', $InlineImages, 'png|jpg|gif', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('FieldSeparator',   'str:1',  $FieldSeparator, '|', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('WithHTML',   'checkbox',  $WithHTML, FALSE, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('UseCreoleSyntax',   'checkbox',  $UseCreoleSyntax, FALSE, XARVAR_NOT_REQUIRED)) return;
     if (!xarSecConfirmAuthKey()) return;
     xarModSetVar('wiki', 'AllowedProtocols', $AllowedProtocols);
     xarModSetVar('wiki', 'InlineImages', $InlineImages);
     xarModSetVar('wiki', 'FieldSeparator', $FieldSeparator);
     xarModSetVar('wiki', 'WithHTML', $WithHTML);
+    xarModSetVar('wiki', 'UseCreoleSyntax', $UseCreoleSyntax);
     /*
     if (isset($aliasname) && trim($aliasname)<>'') {
         xarModSetVar('example', 'useModuleAlias', $modulealias);

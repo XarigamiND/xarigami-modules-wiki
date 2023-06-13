@@ -34,6 +34,7 @@ function wiki_admin_modifyconfig()
     $data['IntlinkNewWindow'] = xarModGetVar('wiki', 'IntlinkNewWindow');
     $data['FieldSeparator'] = xarModGetVar('wiki', 'FieldSeparator');
     $data['WithHTML'] = xarModGetVar('wiki', 'WithHTML') ? true : false;
+    $data['UseCreoleSyntax'] = xarModGetVar('wiki', 'UseCreoleSyntax') ? true : false ;
 /*
     $data['shorturlschecked'] = xarModGetVar('wiki', 'SupportShortURLs') ? true : false;
     $data['useAliasName'] = xarModGetVar('wiki', 'useModuleAlias');

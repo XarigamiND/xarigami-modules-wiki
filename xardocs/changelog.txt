@@ -1,5 +1,8 @@
+Version 1.2 work in progress
+    - Add Creole syntax http://www.wikicreole.org/wiki/Creole1.0
+
 Version 1.1.0 22 Feb 2012
-   - xarigami Wiki
+    - xarigami Wiki
 
 Version 1.0 10th March 2002
-   - initial version
+    - initial version
